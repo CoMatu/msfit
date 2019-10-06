@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   final List<Widget> _pages = [
@@ -10,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final positionModel = Provider.of<PositionModel>(context);
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -47,14 +49,18 @@ class HomePage extends StatelessWidget {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.51,
                     child: PageView.builder(
-                      itemCount: _pages.length,
-                      itemBuilder: (context, position) => Container(
-                        child: _pages[position],
-                      ),
-                      onPageChanged: (num) => print(num),
-                    ),
+                        itemCount: _pages.length,
+                        itemBuilder: (context, position) => Container(
+                              child: _pages[position],
+                            ),
+                        onPageChanged: (num) {
+                          positionModel.setPosition(num);
+                        }),
                   ),
-                  AnimationDots(dotCount: _pages.length,), // for page view indicator
+                  AnimationDots(
+                    dotCount: _pages.length,
+                  ),
+                  // for page view indicator
                 ],
               ),
             ],
@@ -242,19 +248,40 @@ class HomePage extends StatelessWidget {
 
 class AnimationDots extends StatelessWidget {
   final int dotCount;
-  const AnimationDots({Key key,@required this.dotCount}) : super(key: key);
+
+  const AnimationDots({Key key, @required this.dotCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dotList = List<Widget>.generate(dotCount + 1, _buildDot);
+    final dotList = List<Widget>.generate(dotCount, (count) {
+      return _buildDot(count, context);
+    });
 
-    return Row(mainAxisSize: MainAxisSize.min,
-      children: dotList,);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: dotList,
+    );
   }
 
-  static Widget _buildDot(int index) {
+  static Widget _buildDot(int index, context) {
+    final _positionModel = Provider.of<PositionModel>(context);
     final _height = 6.0;
     final _width = 6.0;
+    final position = _positionModel.getPosition();
+    print('in builder $position');
+    if (_positionModel.getPosition() == index) {
+      return AnimatedContainer(
+        child: Container(
+          height: _height,
+          width: _width * 3,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(_height / 2)),
+        ),
+        duration: Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
     return Opacity(
       opacity: 0.6,
       child: Container(
@@ -262,9 +289,8 @@ class AnimationDots extends StatelessWidget {
         width: _width,
         margin: EdgeInsets.only(left: 8.0, right: 8.0),
         decoration: BoxDecoration(
-          color: Colors.white,
-              borderRadius: BorderRadius.circular(_height/2)
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(_height / 2)),
       ),
     );
   }
@@ -302,4 +328,17 @@ class CustomClipPathInner extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+class PositionModel with ChangeNotifier {
+  int _position = 0;
+
+  getPosition() => _position;
+
+  setPosition(int position) {
+    _position = position;
+    print('in model - $_position');
+
+    notifyListeners();
+  }
 }
