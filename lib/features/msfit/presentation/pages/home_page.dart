@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  final List<Widget> _pages = [
+    Icon(Icons.home),
+    Icon(Icons.accessibility_new),
+    Icon(Icons.image),
+    Icon(Icons.directions_car)
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,27 +45,16 @@ class HomePage extends StatelessWidget {
               Column(
                 children: <Widget>[
                   Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    child: PageView(
-                      children: <Widget>[
-                        Container(
-                          child: Icon(Icons.home),
-                        ),
-                        Container(
-                          child: Icon(Icons.accessibility_new),
-                        ),
-                        Container(
-                          child: Icon(Icons.image),
-                        ),
-                        Container(
-                          child: Icon(Icons.image),
-                        ),
-                      ],
+                    height: MediaQuery.of(context).size.height * 0.51,
+                    child: PageView.builder(
+                      itemCount: _pages.length,
+                      itemBuilder: (context, position) => Container(
+                        child: _pages[position],
+                      ),
                       onPageChanged: (num) => print(num),
                     ),
                   ),
-                  Container(),
-
+                  AnimationDots(dotCount: _pages.length,), // for page view indicator
                 ],
               ),
             ],
@@ -239,6 +235,36 @@ class HomePage extends StatelessWidget {
                 blurRadius: 20.0,
               )
             ]),
+      ),
+    );
+  }
+}
+
+class AnimationDots extends StatelessWidget {
+  final int dotCount;
+  const AnimationDots({Key key,@required this.dotCount}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final dotList = List<Widget>.generate(dotCount + 1, _buildDot);
+
+    return Row(mainAxisSize: MainAxisSize.min,
+      children: dotList,);
+  }
+
+  static Widget _buildDot(int index) {
+    final _height = 6.0;
+    final _width = 6.0;
+    return Opacity(
+      opacity: 0.6,
+      child: Container(
+        height: _height,
+        width: _width,
+        margin: EdgeInsets.only(left: 8.0, right: 8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+              borderRadius: BorderRadius.circular(_height/2)
+        ),
       ),
     );
   }
