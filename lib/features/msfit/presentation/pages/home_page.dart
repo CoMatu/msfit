@@ -257,9 +257,13 @@ class AnimationDots extends StatelessWidget {
       return _buildDot(count, context);
     });
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: dotList,
+    return Consumer<PositionModel>(
+      builder: (context, position, child) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: dotList,
+        );
+      },
     );
   }
 
@@ -267,8 +271,6 @@ class AnimationDots extends StatelessWidget {
     final _positionModel = Provider.of<PositionModel>(context);
     final _height = 6.0;
     final _width = 6.0;
-    final position = _positionModel.getPosition();
-    print('in builder $position');
     if (_positionModel.getPosition() == index) {
       return AnimatedContainer(
         child: Container(
@@ -337,7 +339,6 @@ class PositionModel with ChangeNotifier {
 
   setPosition(int position) {
     _position = position;
-    print('in model - $_position');
 
     notifyListeners();
   }
