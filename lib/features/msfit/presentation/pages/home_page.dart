@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:msfit_design/features/msfit/presentation/pages/user_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   final List<Widget> _pages = [
-    Icon(Icons.home),
+    UserPage(),
     Icon(Icons.accessibility_new),
     Icon(Icons.image),
     Icon(Icons.directions_car)

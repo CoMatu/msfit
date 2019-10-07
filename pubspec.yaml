@@ -56,6 +56,8 @@ flutter:
     - res/icons/active_dot.png
     - res/images/dumbbells.png
     - res/images/coctail.png
+    - res/images/user_face.jpg
+    - res/images/user_face_blue.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
