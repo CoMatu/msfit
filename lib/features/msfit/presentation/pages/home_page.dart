@@ -271,17 +271,20 @@ class AnimationDots extends StatelessWidget {
     final _positionModel = Provider.of<PositionModel>(context);
     final _height = 6.0;
     _positionModel.setIndex(index);
-      return AnimatedContainer(
-        child: Container(
-          margin: EdgeInsets.only(left: 8.0, right: 8.0),
-          height: _height,
-          width: _positionModel.getWidth(),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(_height / 2)),
+      return Opacity(
+        opacity: _positionModel.getOpacity(),
+        child: AnimatedContainer(
+          child: Container(
+            margin: EdgeInsets.only(left: 8.0, right: 8.0),
+            height: _height,
+            width: _positionModel.getWidth(),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(_height / 2)),
+          ),
+          duration: Duration(seconds: 2),
+          curve: Curves.bounceIn,
         ),
-        duration: Duration(seconds: 2),
-        curve: Curves.bounceIn,
       );
     }
   }
@@ -344,6 +347,13 @@ class PositionModel with ChangeNotifier {
     if(_position == _index)
      return _width*4;
     return _width;
+  }
+
+  getOpacity() {
+    double _opacity = 0.6;
+    if(_position == _index)
+      return _opacity = 1;
+    return _opacity;
   }
 
 }
