@@ -13,154 +13,157 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final positionModel = Provider.of<PositionModel>(context);
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              ClipPath(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.6,
-                  decoration: BoxDecoration(
-                      color: Color(0xff543cb6),
-                      boxShadow: [
-                        BoxShadow(color: Colors.red, offset: Offset(0.0, 12.0))
-                      ]),
-                ),
-                clipper: CustomClipPath(),
-              ),
-              ClipPath(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.615,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                        Color(0xff845DDA),
-                        Color(0xff8f5de8),
-                      ])),
-                ),
-                clipper: CustomClipPathInner(),
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.51,
-                    child: PageView.builder(
-                        itemCount: _pages.length,
-                        itemBuilder: (context, position) => Container(
-                              child: _pages[position],
-                            ),
-                        onPageChanged: (num) {
-                          positionModel.setPosition(num);
-                        }),
-                  ),
-                  AnimationDots(
-                    dotCount: _pages.length,
-                  ),
-                  // for page view indicator
-                ],
-              ),
-            ],
-          ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: SafeArea(
+        top: false,
+        child: Column(
+          children: <Widget>[
+            Stack(
               children: <Widget>[
-                Container(
-                  height: MediaQuery.of(context).size.width * 0.4,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    color: Color(0xffc945d7),
-                    shape: BoxShape.circle,
-/*
-                    boxShadow: [
-                      BoxShadow(
-                          color: Color(0xffc945d7),
-                          blurRadius: 4.0,
-                          offset: Offset(1, 2.0)),
-                    ],
-*/
+                ClipPath(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    decoration: BoxDecoration(
+                        color: Color(0xff543cb6),
+                        boxShadow: [
+                          BoxShadow(color: Colors.red, offset: Offset(0.0, 12.0))
+                        ]),
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Opacity(
-                          opacity: 0.6,
-                          child: Image.asset(
-                            'res/images/dumbbells.png',
-                            width: 40.0,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Workout',
-                        style: TextStyle(
-                            fontSize: 24.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      Opacity(
-                          opacity: 0.6,
-                          child: Text(
-                            '6 excercises',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  ),
+                  clipper: CustomClipPath(),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.width * 0.4,
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  decoration: BoxDecoration(
-                    color: Color(0xffE2466C),
-                    shape: BoxShape.circle,
-/*
-                    boxShadow: [
-                      BoxShadow(
-                          color: Color(0xffE2466C),
-                          blurRadius: 4.0,
-                          offset: Offset(1, 2.0)),
-                    ],
-*/
+                ClipPath(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.615,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [
+                          Color(0xff845DDA),
+                          Color(0xff8f5de8),
+                        ])),
                   ),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Opacity(
-                          opacity: 0.6,
-                          child: Image.asset(
-                            'res/images/coctail.png',
-                            width: 30.0,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'Diet',
-                        style: TextStyle(
-                            fontSize: 24.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      Opacity(
-                          opacity: 0.6,
-                          child: Text(
-                            '3 meals',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  ),
+                  clipper: CustomClipPathInner(),
+                ),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.51,
+                      child: PageView.builder(
+                          itemCount: _pages.length,
+                          itemBuilder: (context, position) => Container(
+                                child: _pages[position],
+                              ),
+                          onPageChanged: (num) {
+                            positionModel.setPosition(num);
+                          }),
+                    ),
+                    AnimationDots(
+                      dotCount: _pages.length,
+                    ),
+                    // for page view indicator
+                  ],
                 ),
               ],
             ),
-          )
-        ],
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    height: MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                      color: Color(0xffc945d7),
+                      shape: BoxShape.circle,
+/*
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color(0xffc945d7),
+                            blurRadius: 4.0,
+                            offset: Offset(1, 2.0)),
+                      ],
+*/
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: Opacity(
+                            opacity: 0.6,
+                            child: Image.asset(
+                              'res/images/dumbbells.png',
+                              width: 40.0,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Workout',
+                          style: TextStyle(
+                              fontSize: 24.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Opacity(
+                            opacity: 0.6,
+                            child: Text(
+                              '6 excercises',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: BoxDecoration(
+                      color: Color(0xffE2466C),
+                      shape: BoxShape.circle,
+/*
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color(0xffE2466C),
+                            blurRadius: 4.0,
+                            offset: Offset(1, 2.0)),
+                      ],
+*/
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: Opacity(
+                            opacity: 0.6,
+                            child: Image.asset(
+                              'res/images/coctail.png',
+                              width: 30.0,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Diet',
+                          style: TextStyle(
+                              fontSize: 24.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Opacity(
+                            opacity: 0.6,
+                            child: Text(
+                              '3 meals',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         height: 56.0,
