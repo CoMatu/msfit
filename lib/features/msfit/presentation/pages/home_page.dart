@@ -270,33 +270,22 @@ class AnimationDots extends StatelessWidget {
   static Widget _buildDot(int index, context) {
     final _positionModel = Provider.of<PositionModel>(context);
     final _height = 6.0;
-    final _width = 6.0;
-    if (_positionModel.getPosition() == index) {
+    _positionModel.setIndex(index);
       return AnimatedContainer(
         child: Container(
+          margin: EdgeInsets.only(left: 8.0, right: 8.0),
           height: _height,
-          width: _width * 3,
+          width: _positionModel.getWidth(),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(_height / 2)),
         ),
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastOutSlowIn,
+        duration: Duration(seconds: 2),
+        curve: Curves.bounceIn,
       );
     }
-    return Opacity(
-      opacity: 0.6,
-      child: Container(
-        height: _height,
-        width: _width,
-        margin: EdgeInsets.only(left: 8.0, right: 8.0),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(_height / 2)),
-      ),
-    );
   }
-}
+
 
 class CustomClipPath extends CustomClipper<Path> {
   @override
@@ -334,6 +323,8 @@ class CustomClipPathInner extends CustomClipper<Path> {
 
 class PositionModel with ChangeNotifier {
   int _position = 0;
+  int _index;
+  double _width = 6.0;
 
   getPosition() => _position;
 
@@ -342,4 +333,17 @@ class PositionModel with ChangeNotifier {
 
     notifyListeners();
   }
+
+  getIndex() => _index;
+
+  setIndex(int value) {
+    _index = value;
+  }
+
+  getWidth() {
+    if(_position == _index)
+     return _width*4;
+    return _width;
+  }
+
 }
