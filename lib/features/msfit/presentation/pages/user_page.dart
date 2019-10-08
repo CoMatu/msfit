@@ -8,27 +8,36 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   AnimationController progressController;
+  AnimationController progressInnerController;
   Animation animation;
+  Animation animationInner;
 
   @override
   void initState() {
     super.initState();
     progressController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1000));
-    animation = Tween(begin: 0.0, end: 30.0).animate(progressController)
-      ..addListener(() {
-        setState(() {});
-      });
+    progressInnerController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1000));
+    animation = Tween(begin: 0.0, end: 30.0).animate(progressController);
+    animationInner = Tween(begin: 0.0, end: 80.0).animate(progressInnerController);
 
+    animation.addListener(() {
+      setState(() {});
+    });
+
+    animationInner.addListener(() {
+      setState(() {});
+    });
+
+    progressInnerController.forward();
     progressController.forward();
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
@@ -83,26 +92,31 @@ class _UserPageState extends State<UserPage>
           ],
         ),
         Center(
-          child: CustomPaint(
-            foregroundPainter: CircleProgress(animation.value),
-            child: Container(
-              height: 200.0,
-              width: 200.0,
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    '14',
-                    style: TextStyle(
-                        fontSize: 60.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  Text(
-                    'Today, April 19',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500),
-                  ),
-                ],
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: CustomPaint(
+              foregroundPainter:
+                  CircleProgress(animation.value, animationInner.value),
+              child: Container(
+                height: 180.0,
+                width: 180.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      '14',
+                      style: TextStyle(
+                          fontSize: 60.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      'Today, April 19',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -114,15 +128,17 @@ class _UserPageState extends State<UserPage>
 
 class CircleProgress extends CustomPainter {
   double currentProgress;
+  double currentInnerProgress;
 
-  CircleProgress(this.currentProgress);
+  CircleProgress(this.currentProgress, this.currentInnerProgress);
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint outerCircle = Paint()
-      ..strokeWidth = 7
+      ..strokeWidth = 4
       ..color = Colors.black12
-      ..style = PaintingStyle.stroke;
+      ..style = PaintingStyle.stroke
+    ..strokeCap = StrokeCap.round;
 
     Paint completeArc = Paint()
       ..strokeWidth = 7
@@ -133,9 +149,13 @@ class CircleProgress extends CustomPainter {
     Offset center = Offset(size.width / 2, size.height / 2);
     double radius = min(size.width / 2, size.height / 2) - 7;
 
-    canvas.drawCircle(center, radius, outerCircle);
+//    canvas.drawCircle(center, radius, outerCircle);
 
     double angle = 2 * pi * (currentProgress / 100);
+    double angleInner = 2 * pi * (currentInnerProgress / 100);
+
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
+        angleInner, false, outerCircle);
 
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
         angle, false, completeArc);
