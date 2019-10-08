@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'dart:math';
 
 class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        Container(
-          height: 80.0,
-        ),
         Row(
           children: <Widget>[
             Expanded(
@@ -18,13 +18,13 @@ class UserPage extends StatelessWidget {
                     Opacity(
                       opacity: 0.6,
                       child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Today, April 19',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                          )),
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Today, April 19',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w500),
+                        ),
+                      ),
                     ),
                     Container(
                       alignment: Alignment.topLeft,
@@ -58,7 +58,67 @@ class UserPage extends StatelessWidget {
             )
           ],
         ),
+        Center(
+          child: CustomPaint(
+            foregroundPainter: CircleProgress(40),
+            child: Container(
+              height: 200.0,
+              width: 200.0,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    '14',
+                    style: TextStyle(
+                        fontSize: 60.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    'Today, April 19',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
+  }
+}
+
+class CircleProgress extends CustomPainter {
+  double currentProgress;
+
+  CircleProgress(this.currentProgress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint outerCircle = Paint()
+      ..strokeWidth = 7
+      ..color = Colors.black12
+      ..style = PaintingStyle.stroke;
+
+    Paint completeArc = Paint()
+      ..strokeWidth = 7
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    Offset center = Offset(size.width/2, size.height/2);
+    double radius = min(size.width/2, size.height/2) - 7;
+
+    canvas.drawCircle(center, radius, outerCircle);
+
+    double angle = 2 * pi * (currentProgress/100);
+
+    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), - pi/2, angle, false, completeArc);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return null;
   }
 }

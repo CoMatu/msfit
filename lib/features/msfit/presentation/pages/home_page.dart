@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.51,
+                      height: MediaQuery.of(context).size.height * 0.505,
                       child: PageView.builder(
                           itemCount: _pages.length,
                           itemBuilder: (context, position) => Container(
