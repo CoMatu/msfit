@@ -1,43 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'dart:math';
 
-class UserPage extends StatefulWidget {
+class WaterPage extends StatefulWidget {
   @override
-  _UserPageState createState() => _UserPageState();
+  _WaterPageState createState() => _WaterPageState();
 }
 
-class _UserPageState extends State<UserPage>
-    with TickerProviderStateMixin {
-  AnimationController progressController;
-  AnimationController progressInnerController;
-  Animation animation;
-  Animation animationInner;
-
-  bool _visible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    progressController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
-    progressInnerController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
-    animation = Tween(begin: 0.0, end: 30.0).animate(progressController);
-    animationInner = Tween(begin: 0.0, end: 100.0).animate(progressInnerController);
-
-    animation.addListener(() {
-      setState(() {});
-    });
-
-    animationInner.addListener(() {
-      setState(() {
-        _visible = true;
-      });
-    });
-    progressInnerController.forward();
-    progressController.forward();
-  }
+class _WaterPageState extends State<WaterPage> {
+  bool _visible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +28,7 @@ class _UserPageState extends State<UserPage>
                         child: Container(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Today, April 19',
+                            'Water tracking',
                             style: TextStyle(
                                 color: Colors.white, fontWeight: FontWeight.w500),
                           ),
@@ -68,7 +37,7 @@ class _UserPageState extends State<UserPage>
                       Container(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'hello, Sarah',
+                          '1000 ml',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 26.0,
@@ -102,7 +71,7 @@ class _UserPageState extends State<UserPage>
               padding: const EdgeInsets.all(25.0),
               child: CustomPaint(
                 foregroundPainter:
-                    CircleProgress(animation.value, animationInner.value),
+                GlassProgress(),
                 child: Container(
                   height: 180.0,
                   width: 180.0,
@@ -133,39 +102,10 @@ class _UserPageState extends State<UserPage>
   }
 }
 
-class CircleProgress extends CustomPainter {
-  double currentProgress;
-  double currentInnerProgress;
-
-  CircleProgress(this.currentProgress, this.currentInnerProgress);
-
+class GlassProgress extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint outerCircle = Paint()
-      ..strokeWidth = 4
-      ..color = Colors.black12
-      ..style = PaintingStyle.stroke
-    ..strokeCap = StrokeCap.round;
-
-    Paint completeArc = Paint()
-      ..strokeWidth = 7
-      ..color = Colors.white
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
-    Offset center = Offset(size.width / 2, size.height / 2);
-    double radius = min(size.width / 2, size.height / 2) - 7;
-
-//    canvas.drawCircle(center, radius, outerCircle);
-
-    double angle = 2 * pi * (currentProgress / 100);
-    double angleInner = 2 * pi * (currentInnerProgress / 100);
-
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
-        angleInner, false, outerCircle);
-
-    canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2,
-        angle, false, completeArc);
+    // TODO: implement paint
   }
 
   @override

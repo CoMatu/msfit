@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:msfit_design/features/msfit/presentation/pages/user_page.dart';
+import 'package:msfit_design/features/msfit/presentation/pages/water_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   final List<Widget> _pages = [
     UserPage(),
-    Icon(Icons.accessibility_new),
+    WaterPage(),
     Icon(Icons.image),
     Icon(Icons.directions_car)
   ];
+
+  final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +55,7 @@ class HomePage extends StatelessWidget {
                     Container(
                       height: MediaQuery.of(context).size.height * 0.505,
                       child: PageView.builder(
+                        controller: pageController,
                           itemCount: _pages.length,
                           itemBuilder: (context, position) => Container(
                                 child: _pages[position],
