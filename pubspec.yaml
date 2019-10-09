@@ -58,6 +58,7 @@ flutter:
     - res/images/coctail.png
     - res/images/user_face.jpg
     - res/images/user_face_blue.jpg
+    - res/images/water_drop.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

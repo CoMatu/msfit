@@ -52,15 +52,12 @@ class _WaterPageState extends State<WaterPage> {
               Padding(
                 padding: const EdgeInsets.only(right: 30.0),
                 child: Container(
-                  height: 60.0,
-                  width: 60.0,
+                  height: 40.0,
+                  width: 40.0,
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     image: DecorationImage(
-                        image: ExactAssetImage('res/images/user_face_blue.jpg'),
+                        image: ExactAssetImage('res/images/water_drop.png'),
                         fit: BoxFit.scaleDown),
-                    borderRadius: BorderRadius.circular(60.0),
-                    border: Border.all(width: 4.0, color: Colors.white),
                   ),
                 ),
               )
@@ -74,22 +71,18 @@ class _WaterPageState extends State<WaterPage> {
                 GlassProgress(),
                 child: Container(
                   height: 180.0,
-                  width: 180.0,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Row(
                     children: <Widget>[
-                      Text(
-                        '14',
-                        style: TextStyle(
-                            fontSize: 60.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500),
+                      Container(
+                        height: 50.0,
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          border: Border.all(width: 4.0, color: Colors.grey,),
+                        ),
                       ),
-                      Text(
-                        'Today, April 19',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w500),
-                      ),
+                      Container(),
+                      Container(),
                     ],
                   ),
                 ),

@@ -26,17 +26,38 @@ class HomePage extends StatelessWidget {
                 ClipPath(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    decoration: BoxDecoration(
-                        color: Color(0xff543cb6),
-                        boxShadow: [
-                          BoxShadow(color: Colors.red, offset: Offset(0.0, 12.0))
-                        ]),
+                    height: MediaQuery.of(context).size.height * 0.62,
+                    decoration:
+                        BoxDecoration(color: Color(0xff543cb6), boxShadow: [
+                      BoxShadow(color: Colors.red, offset: Offset(0.0, 12.0))
+                    ]),
                   ),
                   clipper: CustomClipPath(),
                 ),
                 ClipPath(
                   child: Container(
+                    margin: EdgeInsets.only(bottom: 18.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 12.0),
+                          height: MediaQuery.of(context).size.height * 0.505,
+                          child: PageView.builder(
+                              controller: pageController,
+                              itemCount: _pages.length,
+                              itemBuilder: (context, position) => Container(
+                                    child: _pages[position],
+                                  ),
+                              onPageChanged: (num) {
+                                positionModel.setPosition(num);
+                              }),
+                        ),
+                        AnimationDots(
+                          dotCount: _pages.length,
+                        ),
+                        // for page view indicator
+                      ],
+                    ),
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.615,
                     decoration: BoxDecoration(
@@ -49,26 +70,6 @@ class HomePage extends StatelessWidget {
                         ])),
                   ),
                   clipper: CustomClipPathInner(),
-                ),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.505,
-                      child: PageView.builder(
-                        controller: pageController,
-                          itemCount: _pages.length,
-                          itemBuilder: (context, position) => Container(
-                                child: _pages[position],
-                              ),
-                          onPageChanged: (num) {
-                            positionModel.setPosition(num);
-                          }),
-                    ),
-                    AnimationDots(
-                      dotCount: _pages.length,
-                    ),
-                    // for page view indicator
-                  ],
                 ),
               ],
             ),
@@ -279,24 +280,23 @@ class AnimationDots extends StatelessWidget {
     final _positionModel = Provider.of<PositionModel>(context);
     final _height = 6.0;
     _positionModel.setIndex(index);
-      return Opacity(
-        opacity: _positionModel.getOpacity(),
-        child: AnimatedContainer(
-          child: Container(
-            margin: EdgeInsets.only(left: 8.0, right: 8.0),
-            height: _height,
-            width: _positionModel.getWidth(),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(_height / 2)),
-          ),
-          duration: Duration(seconds: 2),
-          curve: Curves.bounceIn,
+    return Opacity(
+      opacity: _positionModel.getOpacity(),
+      child: AnimatedContainer(
+        child: Container(
+          margin: EdgeInsets.only(left: 8.0, right: 8.0),
+          height: _height,
+          width: _positionModel.getWidth(),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(_height / 2)),
         ),
-      );
-    }
+        duration: Duration(seconds: 2),
+        curve: Curves.bounceIn,
+      ),
+    );
   }
-
+}
 
 class CustomClipPath extends CustomClipper<Path> {
   @override
@@ -352,16 +352,13 @@ class PositionModel with ChangeNotifier {
   }
 
   getWidth() {
-    if(_position == _index)
-     return _width*4;
+    if (_position == _index) return _width * 4;
     return _width;
   }
 
   getOpacity() {
     double _opacity = 0.6;
-    if(_position == _index)
-      return _opacity = 1;
+    if (_position == _index) return _opacity = 1;
     return _opacity;
   }
-
 }
