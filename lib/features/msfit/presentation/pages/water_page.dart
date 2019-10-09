@@ -72,6 +72,7 @@ class _WaterPageState extends State<WaterPage> {
                 child: Container(
                   height: 180.0,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Container(
                         height: 50.0,
@@ -84,12 +85,19 @@ class _WaterPageState extends State<WaterPage> {
                           ),
                         ),
                       ),
+                      ClipRect(
+                      ),
                       Container(
-                        child: CustomPaint(
-                          foregroundPainter: GlassProgress(),
+                        height: 50.0,
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          border: Border.all(
+                            width: 4.0,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
-                      Container(),
                     ],
                   ),
                 ),
@@ -110,9 +118,9 @@ class GlassProgress extends CustomPainter {
       ..strokeWidth = 4
       ..color = Colors.white;
     path.addRRect(RRect.fromLTRBR(size.width * 0.2, size.height / 3,
-        size.width * 0.9, size.height * 0.9, Radius.circular(12.0)));
+        size.width * 0.4, size.height * 0.9, Radius.circular(12.0)));
 
-    canvas.drawPath(path, paint);
+//    canvas.drawPath(path, paint);
   }
 
   @override
