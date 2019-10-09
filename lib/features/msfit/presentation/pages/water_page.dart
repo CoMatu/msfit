@@ -123,19 +123,17 @@ class GlassProgress extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
     paint.color = Colors.yellow;
-    paint.style = PaintingStyle.fill;
+    paint.style = PaintingStyle.stroke;
     paint.strokeWidth = 6.0;
     paint.strokeCap = StrokeCap.round;
 
     var path = Path();
 
-//    path.lineTo(size.width, 0);
-//    path.moveTo(size.width*0.9, 0);
-//    path.conicTo(size.width / 5, size.height, size.width, size.height, 20);
-    path.moveTo(size.width, 0);
-    path.conicTo(size.width / 5, size.width, size.height, size.width, 20);
-//    path.lineTo(size.width * 0.85, size.height);
-//    path.lineTo(size.width * 0.15, size.height);
+    path.lineTo(size.width*0.9, 0);
+    path.moveTo(size.width*0.9, 0);
+    path.moveTo(size.width, size.height*0.1);
+    path.lineTo(size.width * 0.85, size.height);
+    path.lineTo(size.width * 0.15, size.height);
     path.lineTo(0, 0);
 
     canvas.drawPath(path, paint);
