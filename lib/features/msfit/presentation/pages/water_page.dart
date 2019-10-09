@@ -67,13 +67,12 @@ class _WaterPageState extends State<WaterPage> {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(25.0),
-              child: CustomPaint(
-                foregroundPainter: GlassProgress(),
-                child: Container(
-                  height: 180.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
+              child: Container(
+                height: 180.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+/*
                       Container(
                         height: 50.0,
                         width: 50.0,
@@ -85,8 +84,17 @@ class _WaterPageState extends State<WaterPage> {
                           ),
                         ),
                       ),
-                      ClipRect(
+*/
+                    Container(
+                      child: CustomPaint(
+                        painter: GlassProgress(),
+                        child: Container(
+                          height: 150.0,
+                          width: 100.0,
+                        ),
                       ),
+                    ),
+/*
                       Container(
                         height: 50.0,
                         width: 50.0,
@@ -98,8 +106,8 @@ class _WaterPageState extends State<WaterPage> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
+*/
+                  ],
                 ),
               ),
             ),
@@ -113,14 +121,24 @@ class _WaterPageState extends State<WaterPage> {
 class GlassProgress extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Path path = Path();
-    Paint paint = Paint()
-      ..strokeWidth = 4
-      ..color = Colors.white;
-    path.addRRect(RRect.fromLTRBR(size.width * 0.2, size.height / 3,
-        size.width * 0.4, size.height * 0.9, Radius.circular(12.0)));
+    var paint = Paint();
+    paint.color = Colors.yellow;
+    paint.style = PaintingStyle.fill;
+    paint.strokeWidth = 6.0;
+    paint.strokeCap = StrokeCap.round;
 
-//    canvas.drawPath(path, paint);
+    var path = Path();
+
+//    path.lineTo(size.width, 0);
+//    path.moveTo(size.width*0.9, 0);
+//    path.conicTo(size.width / 5, size.height, size.width, size.height, 20);
+    path.moveTo(size.width, 0);
+    path.conicTo(size.width / 5, size.width, size.height, size.width, 20);
+//    path.lineTo(size.width * 0.85, size.height);
+//    path.lineTo(size.width * 0.15, size.height);
+    path.lineTo(0, 0);
+
+    canvas.drawPath(path, paint);
   }
 
   @override
