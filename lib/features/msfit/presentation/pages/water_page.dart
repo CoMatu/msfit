@@ -30,7 +30,8 @@ class _WaterPageState extends State<WaterPage> {
                           child: Text(
                             'Water tracking',
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.w500),
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
@@ -67,8 +68,7 @@ class _WaterPageState extends State<WaterPage> {
             child: Padding(
               padding: const EdgeInsets.all(25.0),
               child: CustomPaint(
-                foregroundPainter:
-                GlassProgress(),
+                foregroundPainter: GlassProgress(),
                 child: Container(
                   height: 180.0,
                   child: Row(
@@ -78,10 +78,17 @@ class _WaterPageState extends State<WaterPage> {
                         width: 50.0,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50.0),
-                          border: Border.all(width: 4.0, color: Colors.grey,),
+                          border: Border.all(
+                            width: 4.0,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
-                      Container(),
+                      Container(
+                        child: CustomPaint(
+                          foregroundPainter: GlassProgress(),
+                        ),
+                      ),
                       Container(),
                     ],
                   ),
@@ -98,7 +105,14 @@ class _WaterPageState extends State<WaterPage> {
 class GlassProgress extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
+    Path path = Path();
+    Paint paint = Paint()
+      ..strokeWidth = 4
+      ..color = Colors.white;
+    path.addRRect(RRect.fromLTRBR(size.width * 0.2, size.height / 3,
+        size.width * 0.9, size.height * 0.9, Radius.circular(12.0)));
+
+    canvas.drawPath(path, paint);
   }
 
   @override
