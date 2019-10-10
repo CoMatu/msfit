@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class WaterPage extends StatefulWidget {
   @override
@@ -122,16 +123,16 @@ class GlassProgress extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
-    paint.color = Colors.yellow;
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 6.0;
-    paint.strokeCap = StrokeCap.round;
+    paint.color = Color(0xff543cb6);
+    paint.style = PaintingStyle.fill;
+    paint.strokeWidth = 2.0;
+    paint.strokeCap = StrokeCap.square;
 
     var path = Path();
 
-    path.lineTo(size.width*0.9, 0);
-    path.moveTo(size.width*0.9, 0);
-    path.moveTo(size.width, size.height*0.1);
+    num degToRad(num deg) => deg * (pi / 180.0);
+
+    path.lineTo(size.width, 0);
     path.lineTo(size.width * 0.85, size.height);
     path.lineTo(size.width * 0.15, size.height);
     path.lineTo(0, 0);

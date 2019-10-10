@@ -27,10 +27,9 @@ class HomePage extends StatelessWidget {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.62,
-                    decoration:
-                        BoxDecoration(color: Color(0xff543cb6), boxShadow: [
-                      BoxShadow(color: Colors.red, offset: Offset(0.0, 12.0))
-                    ]),
+                    decoration: BoxDecoration(
+                      color: Color(0xff543cb6),
+                    ),
                   ),
                   clipper: CustomClipPath(),
                 ),
