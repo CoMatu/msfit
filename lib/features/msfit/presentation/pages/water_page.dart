@@ -137,7 +137,20 @@ class GlassProgress extends CustomPainter {
     path.lineTo(size.width * 0.15, size.height);
     path.lineTo(0, 0);
 
+    path.close();
+
     canvas.drawPath(path, paint);
+
+    path= Path();
+    paint.color= Color(0xffe5d5ff);
+    paint.style = PaintingStyle.stroke;
+    path.moveTo(size.width * 0.24, size.height * 0.92);
+    path.lineTo(size.width * 0.76, size.height * 0.92);
+
+    path.close();
+    canvas.drawPath(path, paint);
+
+
   }
 
   @override

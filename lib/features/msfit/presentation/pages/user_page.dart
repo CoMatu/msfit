@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math';
@@ -37,6 +39,13 @@ class _UserPageState extends State<UserPage>
     });
     progressInnerController.forward();
     progressController.forward();
+  }
+
+  @override
+  void dispose() {
+    progressController.dispose();
+    progressInnerController.dispose();
+    super.dispose();
   }
 
   @override
