@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:smart_flare/actors/smart_flare_actor.dart';
+
 class WaterPage extends StatefulWidget {
   @override
   _WaterPageState createState() => _WaterPageState();
@@ -87,6 +89,13 @@ class _WaterPageState extends State<WaterPage> {
                       ),
 */
                     Container(
+                      child: SmartFlareActor(
+                        height: 150.0,
+                        width: 100,
+                        filename: 'res/animations/msfit_1.flr',
+                        startingAnimation: 'activate',
+                      ),
+/*
                       child: CustomPaint(
                         painter: GlassProgress(),
                         child: Container(
@@ -94,6 +103,7 @@ class _WaterPageState extends State<WaterPage> {
                           width: 100.0,
                         ),
                       ),
+*/
                     ),
 /*
                       Container(
