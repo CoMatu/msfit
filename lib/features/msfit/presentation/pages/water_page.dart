@@ -90,10 +90,11 @@ class _WaterPageState extends State<WaterPage> {
 */
                     Container(
                       child: SmartFlareActor(
-                        height: 150.0,
-                        width: 100,
+                        height: 300,
+                        width: 300,
                         filename: 'res/animations/msfit_1.flr',
                         startingAnimation: 'activate',
+                        playStartingAnimationWhenRebuilt: true,
                       ),
 /*
                       child: CustomPaint(
