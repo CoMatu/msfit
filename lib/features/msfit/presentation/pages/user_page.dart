@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math';
@@ -9,8 +7,7 @@ class UserPage extends StatefulWidget {
   _UserPageState createState() => _UserPageState();
 }
 
-class _UserPageState extends State<UserPage>
-    with TickerProviderStateMixin {
+class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   AnimationController progressController;
   AnimationController progressInnerController;
   Animation animation;
@@ -26,7 +23,8 @@ class _UserPageState extends State<UserPage>
     progressInnerController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 1000));
     animation = Tween(begin: 0.0, end: 30.0).animate(progressController);
-    animationInner = Tween(begin: 0.0, end: 100.0).animate(progressInnerController);
+    animationInner =
+        Tween(begin: 0.0, end: 100.0).animate(progressInnerController);
 
     animation.addListener(() {
       setState(() {});
@@ -70,7 +68,8 @@ class _UserPageState extends State<UserPage>
                           child: Text(
                             'Today, April 19',
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.w500),
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
@@ -154,7 +153,7 @@ class CircleProgress extends CustomPainter {
       ..strokeWidth = 4
       ..color = Colors.black12
       ..style = PaintingStyle.stroke
-    ..strokeCap = StrokeCap.round;
+      ..strokeCap = StrokeCap.round;
 
     Paint completeArc = Paint()
       ..strokeWidth = 7

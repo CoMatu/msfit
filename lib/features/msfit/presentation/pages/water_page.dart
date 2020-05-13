@@ -141,8 +141,6 @@ class GlassProgress extends CustomPainter {
 
     var path = Path();
 
-    num degToRad(num deg) => deg * (pi / 180.0);
-
     path.lineTo(size.width, 0);
     path.lineTo(size.width * 0.85, size.height);
     path.lineTo(size.width * 0.15, size.height);
